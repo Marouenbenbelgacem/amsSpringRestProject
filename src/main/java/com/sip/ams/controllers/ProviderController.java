@@ -48,13 +48,13 @@ public class ProviderController {
 	}
 
 	@DeleteMapping("/{providerId}")
-	public ResponseEntity<?> deleteProvider(@PathVariable Long providerId) {
+	public Provider deleteProvider(@PathVariable Long providerId) {
 		return providerRepository.findById(providerId).map(provider -> {
 			providerRepository.delete(provider);
-			return ResponseEntity.ok().build();
+			return provider;
 		}).orElseThrow(() -> new IllegalArgumentException("ProviderId " + providerId + " not found"));
 	}
-
+	
 	@GetMapping("/{providerId}")
 	public Provider getProvider(@PathVariable Long providerId) {
 
