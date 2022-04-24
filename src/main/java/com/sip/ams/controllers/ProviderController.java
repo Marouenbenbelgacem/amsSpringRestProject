@@ -26,17 +26,14 @@ import com.sip.ams.repositories.ProviderRepository;
 public class ProviderController {
 	@Autowired
 	private ProviderRepository providerRepository;
-
 	@GetMapping("/list")
 	public List<Provider> getAllProviders() {
 		return (List<Provider>) providerRepository.findAll();
 	}
-
 	@PostMapping("/add")
 	public Provider createProvider(@Valid @RequestBody Provider provider) {
 		return providerRepository.save(provider);
 	}
-
 	@PutMapping("/{providerId}")
 	public Provider updateProvider(@PathVariable Long providerId, @Valid @RequestBody Provider providerRequest) {
 		return providerRepository.findById(providerId).map(provider -> {
@@ -46,7 +43,6 @@ public class ProviderController {
 			return providerRepository.save(provider);
 		}).orElseThrow(() -> new IllegalArgumentException("ProviderId " + providerId + " not found"));
 	}
-
 	@DeleteMapping("/{providerId}")
 	public Provider deleteProvider(@PathVariable Long providerId) {
 		return providerRepository.findById(providerId).map(provider -> {
@@ -54,7 +50,6 @@ public class ProviderController {
 			return provider;
 		}).orElseThrow(() -> new IllegalArgumentException("ProviderId " + providerId + " not found"));
 	}
-	
 	@GetMapping("/{providerId}")
 	public Provider getProvider(@PathVariable Long providerId) {
 
