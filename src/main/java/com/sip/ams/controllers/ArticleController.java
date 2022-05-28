@@ -3,20 +3,31 @@ package com.sip.ams.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.sip.ams.entities.Article;
 import com.sip.ams.repositories.ArticleRepository;
 import com.sip.ams.repositories.ProviderRepository;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping({ "/articles" })
+@CrossOrigin(origins = "*") // n'import quelle front peut acceder a cette API
 public class ArticleController {
 
 	private final ArticleRepository articleRepository;
 	private final ProviderRepository providerRepository;
+
+	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
 
 	@Autowired
 	public ArticleController(ArticleRepository articleRepository, ProviderRepository providerRepository) {

@@ -32,8 +32,12 @@ public class ProviderController {
 	}
 	@PostMapping("/add")
 	public Provider createProvider(@Valid @RequestBody Provider provider) {
+
+		
 		return providerRepository.save(provider);
 	}
+	
+	
 	@PutMapping("/{providerId}")
 	public Provider updateProvider(@PathVariable Long providerId, @Valid @RequestBody Provider providerRequest) {
 		return providerRepository.findById(providerId).map(provider -> {
